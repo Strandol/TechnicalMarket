@@ -11,6 +11,6 @@ namespace TechnicalMarket.Models
         public string Name { get; set; }
         public int Age { get; set; }
         public double Budget { get; set; }
-        public int Currency { get; set; }
+        public int? Currency { get; set; }
     }
 }

@@ -8,7 +8,9 @@ namespace TechnicalMarket.Repositories
 {
     public interface IShopRepository
     {
-        void Create(Shop shop);
-        void Delete(int id);
+        IEnumerable<Shop> GetShops();
+        Shop GetShop(int id);
+        int AddShop(Shop shop);
+        void DeleteShop(int id);
     }
 }
