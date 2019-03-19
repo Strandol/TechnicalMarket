@@ -9,14 +9,10 @@ namespace TechnicalMarket.Models
     public class MarketContext: DbContext
     {
         public MarketContext(): base()
-        { }
+        {
+            Database.SetInitializer<MarketContext>(new CreateDatabaseIfNotExists<MarketContext>());
+        }
 
         public DbSet<Shop> Shops { get; set; }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            Database.SetInitializer<MarketContext>(null);
-            base.OnModelCreating(modelBuilder);
-        }
     }
 }

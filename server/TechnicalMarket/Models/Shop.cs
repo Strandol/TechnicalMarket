@@ -20,6 +20,6 @@ namespace TechnicalMarket.Models
         [Required]
         public double Budget { get; set; }
 
-        public int Currency { get; set; }
+        public int? Currency { get; set; }
     }
 }
