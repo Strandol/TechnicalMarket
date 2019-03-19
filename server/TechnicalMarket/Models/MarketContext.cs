@@ -12,5 +12,11 @@ namespace TechnicalMarket.Models
         { }
 
         public DbSet<Shop> Shops { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer<MarketContext>(null);
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

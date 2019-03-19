@@ -24,14 +24,12 @@ namespace TechnicalMarket
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            config.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;
 
             var container = new UnityContainer();
             container.RegisterType<IShopRepository, ShopRepository>(new HierarchicalLifetimeManager());
             config.DependencyResolver = new UnityResolver(container);
-
-            var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
-            json.UseDataContractJsonSerializer = true;
-            json.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
     }
 }
