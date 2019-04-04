@@ -10,7 +10,7 @@ namespace TechnicalMarket.Models
     {
         public MarketContext(): base()
         {
-            Database.SetInitializer<MarketContext>(new CreateDatabaseIfNotExists<MarketContext>());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<MarketContext>());
         }
 
         public DbSet<Shop> Shops { get; set; }
