@@ -5,6 +5,7 @@ import { IntlProvider } from 'react-intl'
 import { Route, Switch, BrowserRouter } from 'react-router-dom'
 
 import Shops from './pages/shops/Shops'
+import RegisterShop from './pages/register-shop/RegisterShop'
 
 import createStore from './state/store'
 import reducer from './state/reducer'
@@ -32,6 +33,7 @@ class App extends Component {
                     <BrowserRouter>
                         <Switch>
                             <Route exact path='/shops' component={Shops} />
+                            <Route exact path='/shop/register' component={RegisterShop} />
                         </Switch>
                     </BrowserRouter>
                 </IntlProvider>
