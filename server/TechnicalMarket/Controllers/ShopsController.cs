@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Http.Cors;
 using TechnicalMarket.Models;
 using TechnicalMarket.Repositories;
 
@@ -23,13 +24,15 @@ namespace TechnicalMarket.Controllers
         }
 
         // GET: api/Shops
+        [HttpGet]
         public IEnumerable<Shop> GetShops()
         {
-            IEnumerable<Shop> shops =_rep.GetShops();
+            IEnumerable<Shop> shops = _rep.GetShops();
             return shops;
         }
 
         // GET: api/Shops/5
+        [HttpGet]
         public Shop GetShop(int id)
         {
             Shop shop = _rep.GetShop(id);
@@ -37,6 +40,7 @@ namespace TechnicalMarket.Controllers
         }
 
         // POST: api/Shops
+        [HttpPost]
         public int AddShop(Shop shop)
         {
             int id = _rep.AddShop(shop);
@@ -44,6 +48,7 @@ namespace TechnicalMarket.Controllers
         }
 
         // DELETE: api/Shops/5
+        [HttpDelete]
         public void DeleteShop(int id)
         {
             _rep.DeleteShop(id);
