@@ -23,7 +23,7 @@ namespace TechnicalMarket.Repositories
             }
         }
 
-        public int AddShop(Shop shop)
+        public int CreateShop(Shop shop)
         {
             using (MarketContext db = new MarketContext())
             {

@@ -4,40 +4,31 @@ import { connect } from 'react-redux'
 import { Col } from 'antd'
 
 import { loadShops } from '../../state/shops/actions'
+import { getShopsList } from '../../state/shops/selectors'
 
-import ShopItem from './ShopItem/ShopItem'
+import ShopItem, { ShopItemShape } from './ShopItem/ShopItem'
 
 export class Shops extends Component {
     static propTypes = {
-        loadShops: PropTypes.func.isRequired
+        loadShops: PropTypes.func.isRequired,
+        shops: PropTypes.arrayOf(PropTypes.shape(ShopItemShape))
     }
 
     componentDidMount = () => {
         const { loadShops } = this.props
-
         loadShops()
     }
 
     renderShopItem = item => {
         return (
-            <Col xl={4} sm={6} xs={12}>
-                <ShopItem />
+            <Col key={item.name} xl={4} sm={6} xs={12}>
+                <ShopItem {...item} />
             </Col>
         )
     }
 
     renderShops = () => {
-        const shops = [
-            { name: 'Shop1', age: 20, budget: 12300, currency: '$' },
-            { name: 'Shop123', age: 13, budget: 7940, currency: '$' },
-            { name: 'Shop123', age: 13, budget: 7940, currency: '$' },
-            { name: 'Shop123', age: 13, budget: 7940, currency: '$' },
-            { name: 'Shop123', age: 13, budget: 7940, currency: '$' },
-            { name: 'Shop123', age: 13, budget: 7940, currency: '$' },
-            { name: 'Shop123', age: 13, budget: 7940, currency: '$' },
-            { name: 'Shop123', age: 13, budget: 7940, currency: '$' }
-        ]
-
+        const { shops } = this.props
         return (
             <div>{shops.map(this.renderShopItem)}</div>
         )
@@ -51,8 +42,12 @@ export class Shops extends Component {
     )
 }
 
+const mapState = s => ({
+    shops: getShopsList(s)
+})
+
 const mapDispatch = {
     loadShops
 }
 
-export default connect(null, mapDispatch)(Shops)
+export default connect(mapState, mapDispatch)(Shops)

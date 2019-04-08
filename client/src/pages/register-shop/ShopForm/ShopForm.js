@@ -1,6 +1,10 @@
 import React from 'react'
 import { Field, reduxForm, Form } from 'redux-form'
 import { Button, InputNumber, Input, Select } from 'antd'
+import { connect } from 'react-redux'
+
+import { registerShop } from '../../../state/shops/actions'
+import { Currency } from '../../../common/enum/Currency'
 
 import './ShopForm.scss'
 
@@ -12,18 +16,21 @@ const TextInput = ({input: {onChange, value}}) =>
 const NumberInput = ({input: {onChange, value}}) =>
     <InputNumber onChange={onChange} value={value} />
 
-const CurrencyDropdown = ({input: {onChange, value}}) =>
-    <Select defaultValue="lucy" onChange={onChange} value={value}>
-        <Option value="jack">Jack</Option>
-        <Option value="lucy">Lucy</Option>
-        <Option value="Yiminghe">yiminghe</Option>
-    </Select>
+const CurrencyDropdown = ({input: {onChange, value}}) => {
+    const mapCurrency = k => <Option value={Currency[k]}>{k}</Option>
+
+    return (
+        <Select defaultValue={1} onChange={onChange} value={value}>
+            {Object.keys(Currency).map(mapCurrency)}
+        </Select>
+    )
+}
 
 export const ShopForm = props => {
-    const { handleSubmit, reset } = props
+    const { handleSubmit, reset, registerShop } = props
 
     function submit(values) {
-        console.log(values)
+        registerShop(values)
     }
 
     const renderActions = () =>
@@ -59,4 +66,8 @@ const formOptions = {
     form: 'createShop'
 }
 
-export default reduxForm(formOptions)(ShopForm)
+const mapDispatch = {
+    registerShop
+}
+
+export default reduxForm(formOptions)(connect(null, mapDispatch)(ShopForm))

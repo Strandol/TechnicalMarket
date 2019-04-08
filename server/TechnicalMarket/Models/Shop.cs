@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using TechnicalMarket.Common.Enum;
 
 namespace TechnicalMarket.Models
 {
@@ -20,6 +21,6 @@ namespace TechnicalMarket.Models
         [Required]
         public double Budget { get; set; }
 
-        public int? Currency { get; set; }
+        public CurrencyEnum? Currency { get; set; }
     }
 }

@@ -9,6 +9,7 @@ using TechnicalMarket.Repositories;
 using Unity;
 using Unity.Lifetime;
 using Newtonsoft.Json;
+using TechnicalMarket.Services;
 
 namespace TechnicalMarket
 {
@@ -16,9 +17,6 @@ namespace TechnicalMarket
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
-
-            // Web API routes
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
@@ -27,21 +25,12 @@ namespace TechnicalMarket
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            var jsonFormatterCamel = new JsonMediaTypeFormatter();
-            jsonFormatterCamel.SupportedMediaTypes.Clear();
-            MediaTypeHeaderValue mt = new MediaTypeHeaderValue("application/json");
-            jsonFormatterCamel.SupportedMediaTypes.Add(mt);
-
-            var settings = jsonFormatterCamel.SerializerSettings;
-            settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            config.Formatters.Add(jsonFormatterCamel);
-
-            // config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            // config.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            config.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;
 
             var container = new UnityContainer();
-            container.RegisterType<IShopRepository, ShopRepository>(new HierarchicalLifetimeManager());
+            container.RegisterType<IShopRepository, ShopRepository>();
+            container.RegisterType<IShopService, ShopService>();
             config.DependencyResolver = new UnityResolver(container);
         }
     }
